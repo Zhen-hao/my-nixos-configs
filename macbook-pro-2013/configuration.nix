@@ -60,10 +60,14 @@
 	unzip # An extraction utility for archives compressed in .zip format
 	wpa_supplicant_gui	
 	
-	openjdk
+	openjdk # Java
+	aspellDicts.en # spelling check	
+	slack # company chat
 	
-	slack
-  	pkgs.firefoxWrapper
+	# Dev
+	jetbrains.idea-community
+	# brosers
+  	pkgs.firefoxWrapper 
 	pkgs.chromium  
   ];
 
