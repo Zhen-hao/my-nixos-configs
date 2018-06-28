@@ -53,12 +53,16 @@
     wget
     vim
     # source control for configs etc
+    
     gitAndTools.gitFull # git source control
     gitAndTools.gitRemoteGcrypt # encrypted git remotes	
 	
 	unzip # An extraction utility for archives compressed in .zip format
 	wpa_supplicant_gui	
-
+	
+	openjdk
+	
+	slack
   	pkgs.firefoxWrapper
 	pkgs.chromium  
   ];
