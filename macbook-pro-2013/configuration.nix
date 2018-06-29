@@ -17,6 +17,7 @@
 
   networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.enableB43Firmware = true;
 
   # Select internationalisation properties.
   i18n = {
@@ -83,7 +84,11 @@
   services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedTCPPorts = [ 80 443 ];
+  # networking.firewall.allowedTCPPortRanges = [
+  # 	{ from = 4000; to = 4007; }
+  # 	{ from = 8000; to = 8010; }
+  # ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
@@ -94,7 +99,14 @@
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-
+  
+  # Light
+  services.redshift.enable = true;
+  services.redshift.brightness.day = "0.8";
+  services.redshift.brightness.night = "0.4";
+  services.redshift.latitude = "52.3702";
+  services.redshift.longitude = "4.8952";
+ 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.layout = "us";
