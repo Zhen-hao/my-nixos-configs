@@ -48,11 +48,27 @@
 
   };
 
+  
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs;
+  let
+        RStudio-with-my-packages = rstudioWrapper.override
+                { packages = with rPackages;
+                  [
+                        tidyverse
+                        anytime
+                        jsonlite
+                        zoo
+                        bcp
+                        DBI
+                  ];
+                 };
+  in 
+  [
     wget
     vim
+ 	atom
     # source control for configs etc
     
     gitAndTools.gitFull # git source control
@@ -67,6 +83,10 @@
 	
 	# Dev
 	jetbrains.idea-community
+	
+	# Data Science
+	RStudio-with-my-packages
+
 	# brosers
   	pkgs.firefoxWrapper 
 	pkgs.chromium  
@@ -81,7 +101,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ 80 443 ];
