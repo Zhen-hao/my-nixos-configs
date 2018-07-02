@@ -13,7 +13,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.useOSProber = true; 
+  boot.loader.grub.useOSProber = true;
 
   networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -29,67 +29,79 @@
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
-
   # Set nixpkgs options
   nixpkgs.config = {
 
-	allowUnfree = true;
-	
-	icedtea = true;
-		
-	firefox = {
-		enableAdobeFlash = true;
-	};
+  	allowUnfree = true;
 
-	chromium = {
-		enablePepperFlash = true;
-		enablePepperPDF = true;
-	};
+  	icedtea = true;
+
+  	firefox = {
+  		enableAdobeFlash = true;
+  	};
+
+  	chromium = {
+  		enablePepperFlash = true;
+  		enablePepperPDF = true;
+  	};
 
   };
 
-  
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs;
   let
-        RStudio-with-my-packages = rstudioWrapper.override
-                { packages = with rPackages;
-                  [
-                        tidyverse
-                        anytime
-                        jsonlite
-                        zoo
-                        bcp
-                        DBI
-                  ];
-                 };
-  in 
+    RStudio-with-my-packages = rstudioWrapper.override
+      { packages = with rPackages;
+        [
+          tidyverse
+          anytime
+          jsonlite
+          zoo
+          bcp
+          DBI
+        ];
+       };
+  in
   [
-    wget
-    vim
- 	atom
-    # source control for configs etc
-    
-    gitAndTools.gitFull # git source control
-    gitAndTools.gitRemoteGcrypt # encrypted git remotes	
-	
-	unzip # An extraction utility for archives compressed in .zip format
-	wpa_supplicant_gui	
-	
-	openjdk # Java
-	aspellDicts.en # spelling check	
-	slack # company chat
-	
-	# Dev
-	jetbrains.idea-community
-	
-	# Data Science
-	RStudio-with-my-packages
+    # brosers
+    pkgs.firefoxWrapper
+    pkgs.chromium
 
-	# brosers
-  	pkgs.firefoxWrapper 
-	pkgs.chromium  
+    wget # download tool
+
+    # editors
+    vim
+ 	  atom
+
+    # source control for configs etc
+    gitAndTools.gitFull # git source control
+    gitAndTools.gitRemoteGcrypt # encrypted git remotes
+
+    unzip # An extraction utility for archives compressed in .zip format
+    wpa_supplicant_gui # WiFi tool
+
+  	aspellDicts.en # spelling check
+  	slack # company chat
+
+  	# Dev
+    openjdk # Java
+  	jetbrains.idea-community
+
+  	# Data Science
+  	RStudio-with-my-packages
+
+    maim # screenshot
+    gnupg # Modern (2.1) release of the GNU Privacy Guard, a GPL OpenPGP implementation
+    htop # An interactive process viewer for Linux
+    usbutils # Tools for working with USB devices, such as lsusb
+    smartmontools   # Tools for monitoring the health of hard drives - smartctl etc
+    pciutils # A collection of programs for inspecting and manipulating configuration of PCI devices
+    lshw # Provide detailed information on the hardware configuration of the machine
+    hwinfo # Hardware detection tool from openSUSE
+    sysfsutils # These are a set of utilites built upon sysfs, a new virtual filesystem in Linux kernel versions 2.5+ that exposes a system's device tree.
+
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -119,19 +131,19 @@
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-  
+
   # Light
   services.redshift.enable = true;
   services.redshift.brightness.day = "0.8";
   services.redshift.brightness.night = "0.4";
   services.redshift.latitude = "52.3702";
   services.redshift.longitude = "4.8952";
- 
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.layout = "us";
   services.xserver.xkbOptions = "eurosign:e";
-  
+
   # NVIDIA
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.opengl.driSupport32Bit = true;
@@ -143,7 +155,7 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   # Enable GPU support for intel
-  hardware.opengl.extraPackages = [ pkgs.vaapiIntel ]; 
+  hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.extraUsers.guest = {
@@ -151,7 +163,7 @@
   #   uid = 1000;
   # };
 
-  users.users.zhenhao = 
+  users.users.zhenhao =
 	{ isNormalUser = true;
 	  home = "/home/zhenhao";
 	  description = "Zhenhao Li";
