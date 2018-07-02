@@ -93,6 +93,7 @@
   	RStudio-with-my-packages
 
     maim # screenshot
+    xclip # send data to the clipboard
     gnupg # Modern (2.1) release of the GNU Privacy Guard, a GPL OpenPGP implementation
     htop # An interactive process viewer for Linux
     usbutils # Tools for working with USB devices, such as lsusb
