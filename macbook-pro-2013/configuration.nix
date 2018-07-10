@@ -17,6 +17,8 @@
 
   networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  #networking.networkmanager.enable = true;
+
   networking.enableB43Firmware = true;
 
   # Select internationalisation properties.
@@ -81,6 +83,9 @@
 
     unzip # An extraction utility for archives compressed in .zip format
     wpa_supplicant_gui # WiFi tool
+    plasma-nm
+    # networkmanager
+    blueman #Bluetooth
 
   	aspellDicts.en # spelling check
   	slack # company chat
@@ -88,6 +93,7 @@
   	# Dev
     openjdk # Java
   	jetbrains.idea-community
+    sbt
 
   	# Data Science
   	RStudio-with-my-packages
@@ -103,9 +109,13 @@
     hwinfo # Hardware detection tool from openSUSE
     sysfsutils # These are a set of utilites built upon sysfs, a new virtual filesystem in Linux kernel versions 2.5+ that exposes a system's device tree.
 
+    strongswan #P2S VPN
+    networkmanager_strongswan
+    openssl
+
     # KDE Tools
     kdeApplications.spectacle
-    
+
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -130,11 +140,18 @@
   networking.firewall.enable = false;
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # services.printing.enable = true;
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+    # NixOS allows either a lightweight build (default) or full build of PulseAudio to be installed.
+    # Only the full build has Bluetooth support, so it must be selected here.
+    package = pkgs.pulseaudioFull;
+  };
+
+  hardware.bluetooth.enable = true;
 
   # Light
   services.redshift.enable = true;
