@@ -152,6 +152,27 @@
   };
 
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.extraConfig = "
+[General]
+ControllerMode = bredr
+Disable=Socket
+Disable=Headset
+Enable=Media,Source,Sink,Gateway
+AutoConnect=true
+load-module module-switch-on-connect
+
+  "; # Disable=Socket
+
+  # hardware.pulseaudio.configFile = pkgs.writeText "default.pa" ''
+    # load-module module-bluetooth-policy
+    # load-module module-bluetooth-discover
+    ## module fails to load with
+    ##   module-bluez5-device.c: Failed to get device path from module arguments
+    ##   module.c: Failed to load module "module-bluez5-device" (argument: ""): initialization failed.
+    # load-module module-bluez5-device
+    # load-module module-bluez5-discover
+ # '';
+
 
   # Light
   services.redshift.enable = true;
@@ -188,7 +209,7 @@
 	{ isNormalUser = true;
 	  home = "/home/zhenhao";
 	  description = "Zhenhao Li";
-	  extraGroups = [ "wheel" "networkmanager" ];
+	  extraGroups = [ "wheel" "networkmanager" "audio"];
 	};
 
   # This value determines the NixOS release with which your system is to be
